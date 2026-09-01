@@ -6,13 +6,27 @@
   <title>Frontend Skeleton</title>
   <style>
     body {font-family: Arial, sans-serif; text-align: center; margin-top: 50px;}
-    .container {max-width: 800px; margin: 0 auto;}
+    .container {max-width: 800px; margin: 0 auto; padding: 20px;}
+    .output {margin-top: 20px; font-size: 1.2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Frontend Skeleton</h1>
-    <p>This is a simple HTML page added to the frontend repository.</p>
+    <p>Frontend rendering data from the backend...</p>
+    <div class="output" id="data">Loading...</div>
   </div>
+
+  <script>
+    fetch('https://backend-v4yz.onrender.com/health')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('data').innerHTML = '<strong>Status:</strong> ' + data.status + '<br><strong>Timestamp:</strong> ' + data.timestamp;
+      })
+      .catch(error => {
+        document.getElementById('data').innerHTML = '<strong>Error:</strong> Could not reach backend';
+        console.error('Fetch error:', error);
+      });
+  </script>
 </body>
 </html>
